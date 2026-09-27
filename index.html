@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>*{box-sizing:border-box}html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Ghusl Oefenquiz</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,700&family=Figtree:wght@400;500;600&family=Amiri&display=swap">
+<style>
+:root{
+  --bg:#F3F5F4;--surface:#FFFFFF;--ink:#1D2A2B;--muted:#5C6B6A;--line:#D9E0DE;
+  --accent:#2F6F5E;--accent-soft:#E3EEEA;--ok:#2E7D4F;--ok-soft:#E4F2E9;--bad:#A8423A;--bad-soft:#F6E5E3;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;--bg:#141B1B;--surface:#1C2525;--ink:#E6ECEA;--muted:#9AA9A7;--line:#2E3A3A;
+  --accent:#7FC2AE;--accent-soft:#223431;--ok:#7BCB98;--ok-soft:#1E3326;--bad:#E8928A;--bad-soft:#3A2321;}}
+:root[data-theme="dark"]{
+  color-scheme:dark;--bg:#141B1B;--surface:#1C2525;--ink:#E6ECEA;--muted:#9AA9A7;--line:#2E3A3A;
+  --accent:#7FC2AE;--accent-soft:#223431;--ok:#7BCB98;--ok-soft:#1E3326;--bad:#E8928A;--bad-soft:#3A2321;}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 Figtree,system-ui,sans-serif;padding-inline:16px;padding-block:24px 48px}
+.wrap{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+header{display:flex;flex-direction:column;gap:4px}
+.ar{font-family:Amiri,serif;font-size:1.4rem;color:var(--accent);line-height:1.2}
+h1{font-family:Literata,Georgia,serif;font-size:1.7rem;margin:0;text-wrap:balance}
+.sub{color:var(--muted);margin:0;font-size:.95rem}
+.bar{display:flex;align-items:center;gap:12px;font-variant-numeric:tabular-nums;font-size:.9rem;color:var(--muted)}
+.track{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.fill{height:100%;background:var(--accent);transition:width .3s}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:16px}
+.topic{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.q{font-family:Literata,Georgia,serif;font-size:1.2rem;font-weight:500;margin:0;text-wrap:balance}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{all:unset;box-sizing:border-box;display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;cursor:pointer;background:var(--surface);color:var(--ink)}
+.opt:hover:not([disabled]){border-color:var(--accent)}
+.opt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.opt .l{font-weight:600;color:var(--muted);min-width:1.2em}
+.opt.ok{border-color:var(--ok);background:var(--ok-soft)}
+.opt.bad{border-color:var(--bad);background:var(--bad-soft)}
+.opt[disabled]{cursor:default}
+.fb{border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:8px;background:var(--accent-soft)}
+.fb strong{font-size:1rem}
+.fb.ok strong{color:var(--ok)} .fb.bad strong{color:var(--bad)}
+.fb p{margin:0}
+.src{font-size:.88rem;color:var(--muted);border-top:1px solid var(--line);padding-top:8px}
+.src a{color:var(--accent)}
+.btn{all:unset;box-sizing:border-box;text-align:center;padding:12px 18px;border-radius:10px;background:var(--accent);color:var(--surface);font-weight:600;cursor:pointer}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.score{font-family:Literata,Georgia,serif;font-size:3rem;margin:0;font-variant-numeric:tabular-nums}
+.review{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none}
+.review li{padding:10px 12px;border-radius:8px;background:var(--bg);font-size:.92rem;display:flex;flex-direction:column;gap:4px}
+.review .mark{font-weight:600}
+.note{font-size:.82rem;color:var(--muted);text-align:center}
+@media (prefers-reduced-motion:reduce){.fill{transition:none}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header>
+    <div class="ar" lang="ar" dir="rtl">غسل الميت</div>
+    <h1>Oefenquiz dodenwassing</h1>
+    <p class="sub">15 vragen · met uitleg en bron bij elk antwoord</p>
+  </header>
+  <div class="bar"><div class="track"><div class="fill" id="fill"></div></div><span id="count">1 / 15</span></div>
+  <main id="app"></main>
+  <p class="note">Controleer bij twijfel altijd bij je docent. Hadithnummers volgen de nummering van sunnah.com.</p>
+</div>
+
+<script>
+const Q=[
+{t:"Werkwijze",q:"Wat droeg de Profeet ﷺ op om aan het laatste waswater toe te voegen bij het wassen van zijn dochter?",o:["Kamfer (kāfūr)","Muskus","Rozenwater","Zeep"],a:0,e:"In het laatste waswater wordt kamfer gedaan. Kamfer geeft een goede geur en maakt het lichaam steviger.",s:"Umm ʿAṭiyyah — Ṣaḥīḥ al-Bukhārī 1253; Ṣaḥīḥ Muslim 939",u:"https://sunnah.com/bukhari:1253"},
+{t:"Werkwijze",q:"Welk deel van het lichaam van een volwassen man moet bedekt blijven tijdens het wassen door een man?",o:["Alleen de geslachtsdelen","Van navel tot en met de knieën","Het hele lichaam behalve het gezicht","Niets, want hij is overleden"],a:1,e:"De ʿawrah van de overledene blijft bedekt, van navel tot knieën. De rest van het lichaam mag ontbloot worden om goed te wassen.",s:"Ibn Qudāmah, Al-Mughnī, Kitāb al-Janāʾiz; An-Nawawī, Al-Majmūʿ, Kitāb al-Janāʾiz",m:"Volgens de meeste geleerden van navel tot knie. In een overlevering van Abū Ḥanīfah wordt alleen het bedekken van de geslachtsdelen genoemd.",u:""},
+{t:"Werkwijze",q:"Hoe vaak wordt de overledene gewassen volgens de sunnah?",o:["Altijd precies één keer","Altijd precies twee keer","Een oneven aantal: drie, vijf, zeven of meer indien nodig","Maximaal drie keer"],a:2,e:"De Profeet ﷺ noemde drie, vijf of zeven keer, of meer als dat nodig is. Het aantal is oneven.",s:"Umm ʿAṭiyyah — Ṣaḥīḥ al-Bukhārī 1254",u:"https://sunnah.com/bukhari:1254"},
+{t:"Werkwijze",q:"Wat doet de wasser voordat hij begint met wassen?",o:["Zijn intentie (niyyah) maken","Zelf eerst wuḍūʾ verrichten","De overledene meteen wuḍūʾ geven"],a:0,e:"De wasser maakt eerst de intentie om de overledene te wassen. Volgens de Ḥanbalī-school is de niyyah een voorwaarde voor een geldige wassing. De intentie zit in het hart; je hoeft haar niet hardop uit te spreken.",s:"Ibn Qudāmah, Al-Mughnī, Kitāb al-Janāʾiz; Al-Buhūtī, Kashshāf al-Qināʿ, Kitāb al-Janāʾiz",m:"Ḥanbalī: de niyyah is een voorwaarde. Volgens de sterkere mening bij de Shāfiʿī's en bij de Mālikī's is de niyyah niet verplicht.",u:""},
+{t:"Werkwijze",q:"Wat doet de wasser aan het begin, vóór het eigenlijke wassen, bij een niet-zwangere overledene?",o:["Het hoofd drie keer wassen","Zachtjes op de buik drukken zodat achtergebleven vuil naar buiten komt","De nagels knippen","Het lichaam met parfum insmeren"],a:1,e:"Hij tilt het bovenlichaam iets op en drukt zachtjes op de buik. Zo komt resterende onreinheid eruit. Bij een zwangere vrouw doe je dit niet, om het kind niet te schaden.",s:"Ibn Qudāmah, Al-Mughnī, Kitāb al-Janāʾiz",u:""},
+{t:"Werkwijze",q:"Wie mag er aanwezig zijn in de ruimte tijdens het wassen?",o:["Iedereen die wil kijken","Alleen de wasser en wie hem helpt","Alleen de imam","Alleen vrouwen"],a:1,e:"Alleen de wasser en zijn helpers horen erbij te zijn. Het is afgeraden (makrūh) dat anderen aanwezig zijn, omdat de overledene recht heeft op privacy.",s:"Ibn Qudāmah, Al-Mughnī, Kitāb al-Janāʾiz",u:""},
+{t:"Regels",q:"Wat is de islamitische status van het wassen van een overleden moslim?",o:["Sunnah muʾakkadah","Farḍ ʿayn voor elke moslim","Farḍ kifāyah (collectieve plicht)","Mustaḥabb (aanbevolen)"],a:2,e:"Het is een collectieve plicht. Als genoeg mensen het doen, vervalt de plicht voor de rest. Hierover is consensus.",s:"An-Nawawī, Al-Majmūʿ Sharḥ al-Muhadhdhab, Kitāb al-Janāʾiz",m:"De meerderheid: farḍ kifāyah. Een deel van de Mālikī-geleerden noemt het een sterke sunnah.",u:""},
+{t:"Uitzonderingen",q:"Er is geen water, of het lichaam zou uit elkaar vallen door het wassen (bijv. ernstige brandwonden). Wat doe je?",o:["Het lichaam toch met water wassen","Tayammum in plaats van wassen","Niets doen en direct begraven zonder reiniging","Wachten tot er water is, ook al duurt het dagen"],a:1,e:"Als wassen onmogelijk is of het lichaam beschadigt, wordt tayammum gedaan in plaats van ghusl.",s:"Ibn Qudāmah, Al-Mughnī, Kitāb al-Janāʾiz; An-Nawawī, Al-Majmūʿ, Kitāb al-Janāʾiz",u:""},
+{t:"Wie wast wie",q:"Tot welke leeftijd mag een vrouw een overleden jongen wassen (en een man een meisje), volgens de Ḥanbalī-school?",o:["Tot 2 jaar","Tot onder de 7 jaar","Tot 10 jaar","Tot de puberteit"],a:1,e:"Een kind jonger dan zeven jaar heeft nog geen ʿawrah zoals een volwassene. Daarom mag iemand van het andere geslacht het wassen. Ibn al-Mundhir noemt consensus dat een vrouw een klein jongetje mag wassen.",s:"Ibn Qudāmah, Al-Mughnī, Kitāb al-Janāʾiz; Ibn al-Mundhir, Al-Ijmāʿ",m:"Ḥanbalī: onder 7 jaar. Mālikī: een jongen tot ongeveer 8 jaar, een meisje alleen als ze nog heel jong is. Ḥanafī: zolang het kind nog niet de leeftijd heeft waarop het begeerte opwekt.",u:""},
+{t:"Na het wassen",q:"Waar breng je de parfum aan bij de overledene?",o:["Alleen op het hoofd","Op het voorhoofd, de neus, de handen, de knieën en de voeten","Op het hele lichaam","Alleen op de handen"],a:1,e:"De parfum wordt vooral aangebracht op de plekken waarmee de overledene zich neerboog in het gebed. Dat is een eer voor deze lichaamsdelen.",s:"Ibn Qudāmah, Al-Mughnī, Kitāb al-Janāʾiz",u:""},
+{t:"Lijkwade",q:"Waarin werd de Profeet ﷺ gehuld?",o:["Twee doeken en een tulband","Drie witte Jemenitische katoenen doeken, zonder hemd en tulband","Vijf doeken, waaronder een hemd","Zijn eigen kleding"],a:1,e:"ʿĀʾishah vertelt: drie witte Jemenitische doeken van katoen, zonder hemd (qamīṣ) en zonder tulband.",s:"ʿĀʾishah — Ṣaḥīḥ al-Bukhārī 1264; Ṣaḥīḥ Muslim 941",u:"https://sunnah.com/bukhari:1264"},
+{t:"Na het wassen",q:"Wat is volgens de meerderheid van de geleerden de regel voor de wasser zelf na het wassen?",o:["Ghusl is verplicht","Ghusl is aanbevolen (mustaḥabb), niet verplicht","Alleen handen wassen is toegestaan","Hij mag die dag niet bidden"],a:1,e:"Er is een hadith: wie een dode wast, laat hem ghusl doen. De meerderheid ziet dit als aanbeveling, omdat metgezellen het soms wel en soms niet deden.",s:"Abū Hurayrah — Sunan Abī Dāwūd 3161; Jāmiʿ at-Tirmidhī 993",m:"De meerderheid: aanbevolen. Een minderheid van geleerden ziet ghusl na het wassen als verplicht.",u:"https://sunnah.com/abudawud:3161"},
+{t:"Respect",q:"Waarom moet je zeer voorzichtig omgaan met het lichaam van de overledene?",o:["Omdat het lichaam onrein is","Omdat het breken van een bot van een dode is als het breken bij een levende","Omdat de familie meekijkt","Er is hierover geen tekst"],a:1,e:"De Profeet ﷺ zei dat het breken van het bot van een dode hetzelfde is als het breken ervan bij een levende. De overledene houdt zijn waardigheid.",s:"ʿĀʾishah — Sunan Abī Dāwūd 3207; Sunan Ibn Mājah 1616",u:"https://sunnah.com/abudawud:3207"},
+{t:"Miskraam",q:"Vanaf welk moment wordt een miskraam volgens veel geleerden (o.a. de Ḥanbalī's) gewassen en wordt er over gebeden?",o:["Vanaf 40 dagen","Vanaf 4 maanden (120 dagen)","Alleen als het kind na de geboorte heeft gehuild","Nooit"],a:1,e:"Na 120 dagen wordt de ziel ingeblazen. Daarom wordt een miskraam vanaf 4 maanden gewassen en wordt er gebeden. Over de miskraam (as-siqṭ) wordt gebeden volgens een hadith.",s:"Ibn Qudāmah, Al-Mughnī (Kitāb al-Janāʾiz); Ṣaḥīḥ al-Bukhārī 3208; Sunan Abī Dāwūd 3180",m:"Ḥanbalī: vanaf 4 maanden wassen en bidden. Ḥanafī, Mālikī en Shāfiʿī (voor het gebed): alleen als het kind na de geboorte tekenen van leven toonde, zoals huilen.",u:"https://sunnah.com/abudawud:3180"},
+{t:"Na het wassen",q:"Wat zegt de sunnah over het tempo na het overlijden?",o:["Wacht minstens drie dagen","Haast je met de begrafenis","Wacht tot alle familie er is","Begraaf alleen na ʿaṣr"],a:1,e:"De Profeet ﷺ zei: haast je met de janāzah. Als het een goed persoon was, breng je hem naar iets goeds.",s:"Abū Hurayrah — Ṣaḥīḥ al-Bukhārī 1315",u:"https://sunnah.com/bukhari:1315"}
+];
+const L="ABCD";let i=0,score=0,answers=[],order=[];
+const app=document.getElementById("app");
+function shuffle(n){const a=[...Array(n).keys()];for(let k=n-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a}
+function prog(){document.getElementById("fill").style.width=(i/Q.length*100)+"%";document.getElementById("count").textContent=Math.min(i+1,Q.length)+" / "+Q.length}
+function render(){
+  prog();const d=Q[i];order=shuffle(d.o.length);
+  app.innerHTML=`<section class="card"><span class="topic">${d.t}</span><h2 class="q">${d.q}</h2>
+  <div class="opts">${order.map((oi,k)=>`<button class="opt" data-oi="${oi}"><span class="l">${L[k]}</span><span>${d.o[oi]}</span></button>`).join("")}</div><div id="after"></div></section>`;
+  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>pick(+b.dataset.oi));
+}
+function pick(oi){
+  const d=Q[i],good=oi===d.a;if(good)score++;answers.push(good);
+  app.querySelectorAll(".opt").forEach(b=>{b.disabled=true;const v=+b.dataset.oi;if(v===d.a)b.classList.add("ok");else if(v===oi)b.classList.add("bad")});
+  const src=d.u?`<a href="${d.u}" target="_blank" rel="noopener">${d.s}</a>`:d.s;
+  document.getElementById("after").outerHTML=`<div class="fb ${good?"ok":"bad"}"><strong>${good?"Goed!":"Helaas, niet juist"}</strong><p>${d.e}</p><div class="src">Bron: ${src}</div>${d.m?`<div class="src"><b>Meningsverschil:</b> ${d.m}</div>`:""}</div>
+  <button class="btn" id="next">${i<Q.length-1?"Volgende vraag":"Bekijk uitslag"}</button>`;
+  const n=document.getElementById("next");n.focus();n.onclick=()=>{i++;i<Q.length?render():end()};
+}
+function end(){
+  document.getElementById("fill").style.width="100%";document.getElementById("count").textContent="Klaar";
+  const pct=Math.round(score/Q.length*100);
+  const msg=pct>=80?"Uitstekend, je kent de stof goed.":pct>=60?"Goed bezig. Herhaal de vragen die fout gingen.":"Neem de stof nog eens door en probeer opnieuw.";
+  app.innerHTML=`<section class="card"><span class="topic">Uitslag</span><p class="score">${score} / ${Q.length}</p><p style="margin:0">${msg}</p>
+  <ul class="review">${Q.map((d,k)=>`<li><span class="mark" style="color:var(${answers[k]?"--ok":"--bad"})">${answers[k]?"✓":"✗"} Vraag ${k+1}</span><span>${d.q}</span><span style="color:var(--muted)">Antwoord: ${d.o[d.a]}</span></li>`).join("")}</ul>
+  <button class="btn" id="again">Opnieuw beginnen</button></section>`;
+  document.getElementById("again").onclick=()=>{i=0;score=0;answers=[];render();window.scrollTo(0,0)};
+}
+render();
+</script>
+
+</body>
+</html>
