@@ -7,51 +7,8 @@
 <title>Ghusl Oefenquiz</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,700&family=Figtree:wght@400;500;600&family=Amiri&display=swap">
 <style>
-:root{
-  --bg:#F3F5F4;--surface:#FFFFFF;--ink:#1D2A2B;--muted:#5C6B6A;--line:#D9E0DE;
-  --accent:#2F6F5E;--accent-soft:#E3EEEA;--ok:#2E7D4F;--ok-soft:#E4F2E9;--bad:#A8423A;--bad-soft:#F6E5E3;
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  color-scheme:dark;--bg:#141B1B;--surface:#1C2525;--ink:#E6ECEA;--muted:#9AA9A7;--line:#2E3A3A;
-  --accent:#7FC2AE;--accent-soft:#223431;--ok:#7BCB98;--ok-soft:#1E3326;--bad:#E8928A;--bad-soft:#3A2321;}}
-:root[data-theme="dark"]{
-  color-scheme:dark;--bg:#141B1B;--surface:#1C2525;--ink:#E6ECEA;--muted:#9AA9A7;--line:#2E3A3A;
-  --accent:#7FC2AE;--accent-soft:#223431;--ok:#7BCB98;--ok-soft:#1E3326;--bad:#E8928A;--bad-soft:#3A2321;}
-body{background:var(--bg);color:var(--ink);font:16px/1.55 Figtree,system-ui,sans-serif;padding-inline:16px;padding-block:24px 48px}
-.wrap{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
-header{display:flex;flex-direction:column;gap:4px}
-.ar{font-family:Amiri,serif;font-size:1.4rem;color:var(--accent);line-height:1.2}
-h1{font-family:Literata,Georgia,serif;font-size:1.7rem;margin:0;text-wrap:balance}
-.sub{color:var(--muted);margin:0;font-size:.95rem}
-.bar{display:flex;align-items:center;gap:12px;font-variant-numeric:tabular-nums;font-size:.9rem;color:var(--muted)}
-.track{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
-.fill{height:100%;background:var(--accent);transition:width .3s}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:16px}
-.topic{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:600}
-.q{font-family:Literata,Georgia,serif;font-size:1.2rem;font-weight:500;margin:0;text-wrap:balance}
-.opts{display:flex;flex-direction:column;gap:10px}
-.opt{all:unset;box-sizing:border-box;display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;cursor:pointer;background:var(--surface);color:var(--ink)}
-.opt:hover:not([disabled]){border-color:var(--accent)}
-.opt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.opt .l{font-weight:600;color:var(--muted);min-width:1.2em}
-.opt.ok{border-color:var(--ok);background:var(--ok-soft)}
-.opt.bad{border-color:var(--bad);background:var(--bad-soft)}
-.opt[disabled]{cursor:default}
-.fb{border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:8px;background:var(--accent-soft)}
-.fb strong{font-size:1rem}
-.fb.ok strong{color:var(--ok)} .fb.bad strong{color:var(--bad)}
-.fb p{margin:0}
-.src{font-size:.88rem;color:var(--muted);border-top:1px solid var(--line);padding-top:8px}
-.src a{color:var(--accent)}
-.btn{all:unset;box-sizing:border-box;text-align:center;padding:12px 18px;border-radius:10px;background:var(--accent);color:var(--surface);font-weight:600;cursor:pointer}
-.btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
-.btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
-.score{font-family:Literata,Georgia,serif;font-size:3rem;margin:0;font-variant-numeric:tabular-nums}
-.review{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none}
-.review li{padding:10px 12px;border-radius:8px;background:var(--bg);font-size:.92rem;display:flex;flex-direction:column;gap:4px}
-.review .mark{font-weight:600}
-.note{font-size:.82rem;color:var(--muted);text-align:center}
-@media (prefers-reduced-motion:reduce){.fill{transition:none}}
+:root{color-scheme:light;--bg:#f2ebdd;--surface:#fffaf1;--ink:#163b2d;--muted:#657168;--line:#e2d5bc;--accent:#164733;--accent-soft:#e9f0e5;--ok:#207550;--ok-soft:#e1f2e6;--bad:#a24b40;--bad-soft:#fae8e5}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% 0%,#fff9ee 0%,#f2ebdd 60%,#e9dfc9 100%);color:var(--ink);font:16px/1.6 Figtree,system-ui,sans-serif;padding:24px 16px 60px}.wrap{max-width:700px;margin:auto;display:flex;flex-direction:column;gap:22px}header{position:relative;isolation:isolate;text-align:center;padding:45px 20px 30px;border:1px solid #dac49a;border-radius:160px 160px 26px 26px;background:linear-gradient(150deg,#fff8e9,#efe5d2);box-shadow:0 15px 45px #705b3220;overflow:hidden}header:before,header:after{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1}header:before{background-image:repeating-conic-gradient(from 45deg,#ba9b5950 0deg 5deg,transparent 5deg 45deg);background-size:44px 44px;mask-image:linear-gradient(to bottom,#0007,transparent 40%);opacity:.35}header:after{border:2px solid #c7a46e80;border-radius:inherit;inset:8px}.ar{font:2rem Amiri,serif;color:#ad8747}.ar:before{content:"☪";display:block;font:2.7rem Georgia;color:#bd995a;line-height:1.2;margin-bottom:4px}h1{font:700 clamp(2.2rem,7vw,3.5rem)/1.15 Literata,Georgia,serif;margin:2px auto 12px;max-width:530px}.sub{color:#566559;text-transform:uppercase;letter-spacing:.12em;font-size:.72rem;font-weight:700;margin:0}.ornament{height:15px;margin:15px auto;max-width:280px;position:relative;border-bottom:1px solid #b99250}.ornament:after{content:"✥";position:absolute;left:50%;top:1px;transform:translateX(-50%);padding:0 12px;background:#f3ead9;color:#af8647}.bar{display:flex;align-items:center;gap:16px;color:var(--ink);font-size:.86rem;font-weight:700;padding:0 6px}.track{height:9px;border-radius:99px;background:#e3d9c5;overflow:hidden;flex:1}.fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#184a33,#67966d);transition:width .25s}.card{background:#fffaf2ed;border:1px solid #e6d4b4;border-radius:30px;padding:clamp(20px,5vw,36px);box-shadow:0 18px 55px #6f56331a;display:flex;flex-direction:column;gap:22px;backdrop-filter:blur(9px)}.topic{display:inline-flex;align-self:flex-start;padding:5px 13px;background:#e9efdf;border-radius:99px;color:#31593c;letter-spacing:.12em;text-transform:uppercase;font-size:.7rem;font-weight:800}.q{font:500 clamp(1.23rem,4vw,1.6rem)/1.55 Literata,Georgia,serif;color:#182b24;margin:0}.opts{display:grid;gap:13px}.opt{appearance:none;display:flex;gap:15px;align-items:center;width:100%;padding:13px 17px;border-radius:17px;border:1.5px solid #dfcfb3;background:#fffcf7;text-align:left;color:#253629;font:inherit;cursor:pointer;box-shadow:0 4px 12px #7b69430a;transition:transform .15s,border-color .15s,background .15s}.opt:not(:disabled):hover{border-color:#21573d;transform:translateY(-1px)}.opt:focus-visible,.btn:focus-visible{outline:3px solid #c4a261;outline-offset:3px}.opt .l{display:grid;place-items:center;flex:0 0 38px;height:38px;background:#eadeca;color:#194b35;border-radius:50%;font:700 1.05rem Georgia}.opt.ok{border-color:#1c6a42;background:#e6f1e7}.opt.bad{border-color:#a24b40;background:#fae8e5}.opt[disabled]{cursor:default}.fb{border-radius:17px;padding:19px;background:#e8eee5;display:flex;flex-direction:column;gap:10px}.fb strong{color:var(--ok)}.fb.bad strong{color:var(--bad)}.fb p{margin:0}.src{border-top:1px solid #cbd7c8;padding-top:10px;font-size:.86rem;color:#53695c}.src a{color:#185a3e}.btn{appearance:none;border:0;cursor:pointer;border-radius:15px;padding:14px 22px;background:linear-gradient(115deg,#164732,#275e42);color:white;font:700 .9rem Figtree,sans-serif;letter-spacing:.04em;box-shadow:0 6px 14px #18432d29}.btn.ghost{background:#fffcf5;color:#204d35;border:1px solid #d1b88b;box-shadow:none}.score{font:700 3.5rem Literata,serif;margin:0}.review{padding:0;margin:0;list-style:none;display:grid;gap:10px}.review li{padding:13px;border-radius:12px;background:#eee9db;display:grid;gap:5px;font-size:.9rem}.note{text-align:center;font-size:.78rem;color:#6e756e;max-width:520px;margin:0 auto}@media(max-width:420px){body{padding:12px 10px 30px}header{padding:38px 10px 25px}.card{border-radius:24px}.opt{padding:12px 10px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
@@ -60,7 +17,7 @@ h1{font-family:Literata,Georgia,serif;font-size:1.7rem;margin:0;text-wrap:balanc
 <div class="wrap">
   <header>
     <div class="ar" lang="ar" dir="rtl">غسل الميت</div>
-    <h1>Oefenquiz dodenwassing</h1>
+    <h1>Ghusl Quiz</h1><div class="ornament" aria-hidden="true"></div><p class="sub">Dodenwassing</p>
     <p class="sub">15 vragen · met uitleg en bron bij elk antwoord</p>
   </header>
   <div class="bar"><div class="track"><div class="fill" id="fill"></div></div><span id="count">1 / 15</span></div>
@@ -74,7 +31,7 @@ const Q=[
 {t:"Werkwijze",q:"Welk deel van het lichaam van een volwassen man moet bedekt blijven tijdens het wassen door een man?",o:["Alleen de geslachtsdelen","Van navel tot en met de knieën","Het hele lichaam behalve het gezicht","Niets, want hij is overleden"],a:1,e:"De ʿawrah van de overledene blijft bedekt, van navel tot knieën. De rest van het lichaam mag ontbloot worden om goed te wassen.",s:"Ibn Qudāmah, Al-Mughnī, Kitāb al-Janāʾiz; An-Nawawī, Al-Majmūʿ, Kitāb al-Janāʾiz",m:"Volgens de meeste geleerden van navel tot knie. In een overlevering van Abū Ḥanīfah wordt alleen het bedekken van de geslachtsdelen genoemd.",u:""},
 {t:"Werkwijze",q:"Hoe vaak wordt de overledene gewassen volgens de sunnah?",o:["Altijd precies één keer","Altijd precies twee keer","Een oneven aantal: drie, vijf, zeven of meer indien nodig","Maximaal drie keer"],a:2,e:"De Profeet ﷺ noemde drie, vijf of zeven keer, of meer als dat nodig is. Het aantal is oneven.",s:"Umm ʿAṭiyyah — Ṣaḥīḥ al-Bukhārī 1254",u:"https://sunnah.com/bukhari:1254"},
 {t:"Werkwijze",q:"Wat doet de wasser voordat hij begint met wassen?",o:["Zijn intentie (niyyah) maken","Zelf eerst wuḍūʾ verrichten","De overledene meteen wuḍūʾ geven"],a:0,e:"De wasser maakt eerst de intentie om de overledene te wassen. Volgens de Ḥanbalī-school is de niyyah een voorwaarde voor een geldige wassing. De intentie zit in het hart; je hoeft haar niet hardop uit te spreken.",s:"Ibn Qudāmah, Al-Mughnī, Kitāb al-Janāʾiz; Al-Buhūtī, Kashshāf al-Qināʿ, Kitāb al-Janāʾiz",m:"Ḥanbalī: de niyyah is een voorwaarde. Volgens de sterkere mening bij de Shāfiʿī's en bij de Mālikī's is de niyyah niet verplicht.",u:""},
-{t:"Werkwijze",q:"Wat doet de wasser aan het begin, vóór het eigenlijke wassen, bij een niet-zwangere overledene?",o:["Het hoofd drie keer wassen","Zachtjes op de buik drukken zodat achtergebleven vuil naar buiten komt","De nagels knippen","Het lichaam met parfum insmeren"],a:1,e:"Hij tilt het bovenlichaam iets op en drukt zachtjes op de buik. Zo komt resterende onreinheid eruit. Bij een zwangere vrouw doe je dit niet, om het kind niet te schaden.",s:"Ibn Qudāmah, Al-Mughnī, Kitāb al-Janāʾiz",u:""},
+{t:"Werkwijze",q:"Wat wordt er volgens de Sunnah aanbevolen te gebruiken in het waswater bij het wassen van een volwassen overledene?",o:["Sidr (loteboombladeren)","Rozenwater","Kamfer","Zeep"],a:0,e:"Bij de dodenwassing wordt water met sidr (loteboombladeren) gebruikt. In de overlevering over de wassing van de dochter van de Profeet ﷺ wordt water met sidr genoemd; kamfer wordt aan de laatste wassing toegevoegd.",s:"Umm ʿAṭiyyah — Ṣaḥīḥ al-Bukhārī 1253; Ṣaḥīḥ Muslim 939",u:"https://sunnah.com/bukhari:1253"},
 {t:"Werkwijze",q:"Wie mag er aanwezig zijn in de ruimte tijdens het wassen?",o:["Iedereen die wil kijken","Alleen de wasser en wie hem helpt","Alleen de imam","Alleen vrouwen"],a:1,e:"Alleen de wasser en zijn helpers horen erbij te zijn. Het is afgeraden (makrūh) dat anderen aanwezig zijn, omdat de overledene recht heeft op privacy.",s:"Ibn Qudāmah, Al-Mughnī, Kitāb al-Janāʾiz",u:""},
 {t:"Regels",q:"Wat is de islamitische status van het wassen van een overleden moslim?",o:["Sunnah muʾakkadah","Farḍ ʿayn voor elke moslim","Farḍ kifāyah (collectieve plicht)","Mustaḥabb (aanbevolen)"],a:2,e:"Het is een collectieve plicht. Als genoeg mensen het doen, vervalt de plicht voor de rest. Hierover is consensus.",s:"An-Nawawī, Al-Majmūʿ Sharḥ al-Muhadhdhab, Kitāb al-Janāʾiz",m:"De meerderheid: farḍ kifāyah. Een deel van de Mālikī-geleerden noemt het een sterke sunnah.",u:""},
 {t:"Uitzonderingen",q:"Er is geen water, of het lichaam zou uit elkaar vallen door het wassen (bijv. ernstige brandwonden). Wat doe je?",o:["Het lichaam toch met water wassen","Tayammum in plaats van wassen","Niets doen en direct begraven zonder reiniging","Wachten tot er water is, ook al duurt het dagen"],a:1,e:"Als wassen onmogelijk is of het lichaam beschadigt, wordt tayammum gedaan in plaats van ghusl.",s:"Ibn Qudāmah, Al-Mughnī, Kitāb al-Janāʾiz; An-Nawawī, Al-Majmūʿ, Kitāb al-Janāʾiz",u:""},
