@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Beheer · Dodenwassing Quiz</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f2ebdd;color:#163b2d;font:16px/1.6 system-ui,sans-serif}main{max-width:1050px;margin:40px auto;padding:20px}section{background:#fffaf1;border:1px solid #dccba9;border-radius:22px;padding:24px;margin:20px 0}h1,h2{line-height:1.25}label{display:block;margin:12px 0 5px}input,button{font:inherit;padding:12px;border-radius:10px}input{width:100%;max-width:450px;border:1px solid #b7bcae}button{background:#164733;color:white;border:0;cursor:pointer;margin:12px 8px 0 0}button:disabled{opacity:.5;cursor:wait}table{width:100%;border-collapse:collapse}th,td{padding:10px;text-align:left;border-bottom:1px solid #ded5c1}small{color:#59675b}[hidden]{display:none!important}.scroll{overflow:auto}#status{white-space:pre-line}.error{color:#a12f28}
+</style></head><body><main><h1>Dodenwassing Quiz · Beheer</h1><p id="status" role="status" aria-live="polite"></p>
+<section id="login"><h2>Inloggen</h2><form id="loginForm"><label for="email">E-mailadres</label><input id="email" type="email" autocomplete="username" required><label for="password">Wachtwoord</label><input id="password" type="password" autocomplete="current-password" required><br><button id="loginButton">Inloggen</button></form></section>
+<div id="dashboard" hidden><section><h2>Resultaten</h2><p id="summary"></p><button id="refresh" type="button">Vernieuwen</button><button id="logout" type="button">Uitloggen</button><div class="scroll"><table><thead><tr><th>Naam</th><th>Score</th><th>Datum</th><th>Antwoorden</th></tr></thead><tbody id="results"></tbody></table></div><button id="more" type="button" hidden>Meer laden</button></section>
+<section><h2>Analyse per vraag</h2><p><small>Gebaseerd op de geladen resultaten.</small></p><div class="scroll"><table><thead><tr><th>Vraag</th><th>Goed</th><th>Fout</th></tr></thead><tbody id="analysis"></tbody></table></div></section>
+<section><h2>Wachtwoord wijzigen</h2><p>Vervang je tijdelijke wachtwoord na je eerste login.</p><form id="passwordForm"><label for="newPassword">Nieuw wachtwoord (minimaal 12 tekens)</label><input id="newPassword" type="password" autocomplete="new-password" minlength="12" required><label for="confirmPassword">Herhaal nieuw wachtwoord</label><input id="confirmPassword" type="password" autocomplete="new-password" minlength="12" required><br><button>Wachtwoord opslaan</button></form></section></div>
+</main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.min.js"></script><script>
+'use strict';
+const db=window.supabase.createClient('https://hdkedpllbysexxvdrylr.supabase.co','sb_publishable_koqOekGgrCDZJobuvdd-1Q_yAGvVHWX');
+const el=id=>document.getElementById(id);
+let rows=[],epoch=0;
+function status(message,error=false){el('status').textContent=message;el('status').className=error?'error':''}
+function cell(row,text){const td=document.createElement('td');td.textContent=text;row.append(td);return td}
+function render(){
+ el('results').replaceChildren();
+ for(const result of rows){
+  const tr=document.createElement('tr');cell(tr,result.participant_name);cell(tr,result.score+' / 15');cell(tr,new Date(result.created_at).toLocaleString('nl-NL'));
+  const td=cell(tr,'');const details=document.createElement('details'),summary=document.createElement('summary');summary.textContent='Bekijk antwoorden';details.append(summary);
+  for(const a of result.answers){const p=document.createElement('p');p.textContent='Vraag '+a.question+': '+(a.is_correct?'Goed':'Fout')+' · gekozen optie '+(Number(a.selected)+1)+' · juiste optie '+(Number(a.correct)+1);details.append(p)}
+  td.append(details);el('results').append(tr);
+ }
+ const mean=rows.length?(rows.reduce((s,r)=>s+r.score,0)/rows.length).toFixed(1):'—';
+ el('summary').textContent=rows.length+' geladen resultaten · Gemiddelde score: '+mean+' / 15';
+ el('analysis').replaceChildren();
+ for(let q=1;q<=15;q++){let good=0,bad=0;for(const r of rows)for(const a of r.answers)if(a.question===q){a.is_correct?good++:bad++}const tr=document.createElement('tr');cell(tr,q);cell(tr,good);cell(tr,bad);el('analysis').append(tr)}
+}
+async function load(reset=true){
+ const version=epoch;el('refresh').disabled=true;el('more').disabled=true;
+ try{
+  const offset=reset?0:rows.length;
+  const {data,error}=await db.from('quiz_submissions').select('id,participant_name,score,answers,created_at').order('created_at',{ascending:false}).order('id',{ascending:false}).range(offset,offset+99);
+  if(error)throw error;if(version!==epoch)return;
+  rows=reset?data:rows.concat(data);render();el('more').hidden=data.length<100;status('');
+ }catch(e){if(version===epoch)status('Resultaten laden mislukt: '+e.message,true)}
+ finally{el('refresh').disabled=false;el('more').disabled=false}
+}
+async function show(){
+ const version=++epoch;
+ rows=[];el('results').replaceChildren();el('analysis').replaceChildren();el('dashboard').hidden=true;el('login').hidden=false;
+ const {data,error}=await db.auth.getUser();
+ if(version!==epoch)return;
+ if(error||!data.user)return;
+ const role=await db.from('quiz_admins').select('user_id').eq('user_id',data.user.id).maybeSingle();
+ if(version!==epoch)return;
+ if(role.error||!role.data){await db.auth.signOut();status('Dit account heeft geen beheerrechten.',true);return}
+ el('login').hidden=true;el('dashboard').hidden=false;await load();
+}
+el('loginForm').onsubmit=async e=>{e.preventDefault();el('loginButton').disabled=true;status('Inloggen…');try{const {error}=await db.auth.signInWithPassword({email:el('email').value.trim(),password:el('password').value});if(error)throw error;el('password').value='';await show()}catch(e){status('Inloggen mislukt. Controleer je gegevens.',true)}finally{el('loginButton').disabled=false}};
+el('logout').onclick=async()=>{const {error}=await db.auth.signOut();if(error){status('Uitloggen mislukt. Probeer opnieuw.',true);return}await show();status('Je bent uitgelogd.')};
+el('refresh').onclick=()=>load();el('more').onclick=()=>load(false);
+el('passwordForm').onsubmit=async e=>{e.preventDefault();const password=el('newPassword').value;if(password!==el('confirmPassword').value){status('De wachtwoorden komen niet overeen.',true);return}const button=e.target.querySelector('button');button.disabled=true;try{const {error}=await db.auth.updateUser({password});if(error)throw error;e.target.reset();status('Je wachtwoord is gewijzigd.')}catch(e){status('Wijzigen mislukt: '+e.message,true)}finally{button.disabled=false}};
+db.auth.onAuthStateChange(event=>{if(event==='SIGNED_OUT'){epoch++;rows=[];el('results').replaceChildren();el('analysis').replaceChildren();el('dashboard').hidden=true;el('login').hidden=false}});
+show();
+</script></body></html>
