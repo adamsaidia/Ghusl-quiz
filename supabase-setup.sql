@@ -21,6 +21,10 @@ drop policy if exists "Anyone can submit a finished quiz" on public.quiz_submiss
 create policy "Anyone can submit a finished quiz" on public.quiz_submissions for insert to anon, authenticated with check (true);
 drop policy if exists "Only admins can view results" on public.quiz_submissions;
 create policy "Only admins can view results" on public.quiz_submissions for select to authenticated using (exists(select 1 from public.quiz_admins where user_id = (select auth.uid())));
+-- Admins can delete results (reset button in admin.html).
+grant delete on public.quiz_submissions to authenticated;
+drop policy if exists "Only admins can delete results" on public.quiz_submissions;
+create policy "Only admins can delete results" on public.quiz_submissions for delete to authenticated using (exists(select 1 from public.quiz_admins where user_id = (select auth.uid())));
 drop policy if exists "Admin can see own role" on public.quiz_admins;
 create policy "Admin can see own role" on public.quiz_admins for select to authenticated using (user_id = (select auth.uid()));
 -- After creating your own user in Authentication > Users, add the user's UUID:
